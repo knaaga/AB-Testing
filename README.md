@@ -12,8 +12,8 @@
   - [Recommendation](#recommendation1)
 - [Part 2 - Testing a Webpage Experiment to Increase User Retention and Net Enrollment](#part2)
   - [Problem Statement](#problem_statement2)
-  - [Usage Funnel and Metrics](#funnel)
   - [Experiment Design](#expoverview)
+  - [Usage Funnel and Metrics](#metrics_funnel)
   - [Metric Choice](#metric)
   - [Standard Error of Metrics](#SE)
   - [Experiment Sizing, Duration and Exposure](#sizing)
@@ -53,11 +53,24 @@
 ## Problem Statement <a name="problem_statement2"></a>
 - Same as Jupyter (refine)
 
-## Usage Funnel and Metrics <a name="funnel"></a>
-- Funnel diagram
-- Data overview
+## Experiment Design <a name="expoverview"></a>
+### Experiment Overview
+At the time of this experiment, Udacity courses currently have two options on the course overview page: “start free trial,” and “access course materials.” If the student clicks “start free trial,” they will be asked to enter their credit card information, and then they will be enrolled in a free trial for the paid version of the course. After 14 days, they will automatically be charged unless they cancel first. If the student clicks “access course materials,” they will be able to view the videos and take the quizzes for free, but they will not receive coaching support or a verified certificate, and they will not submit their final project for feedback.
 
-### Overview of Metrics
+In the experiment, Udacity tested a change where if the student clicked “start free trial,” they were asked how much time they had available to devote to the course. If the student indicated five or more hours per week, they would be taken through the checkout process as usual. If they showed fewer than 5 hours per week, a message would appear indicating that Udacity courses usually require a more significant time commitment for successful completion, and suggesting that the student might like to access the course materials for free. At this point, the student would have the option to continue enrolling in the free trial or access the course materials for free instead. This screenshot shows what this experiment looks like.
+
+![test](https://github.com/knaaga/AB-Testing/blob/main/assets/webpage_experiment.png)
+
+### Experiment Setup
+#### **Null Hypothesis**
+This experiment will not have a significant effect and hence will not be effective in reducing the early Udacity course cancellation.
+
+#### **Alternate Hypothesis**
+This experiment will have a significant effect and hence will reduce the number of frustrated students who quit the free trial, without significantly reducing the number of students to continue past the free trial and eventually complete the course.
+
+Unit of Diversion: A unit of diversion is used to define what an individual subject is, in an experiment. In this case, it is a cookie (although if the student enrolls in the free trial, they are tracked by user-id from that point forward). 
+
+### Overview of Metrics and User Conversion Funnel <a name="metrics_and_funnel"></a>
 The metrics relevant to this analysis are described below. Note that the unit of diversion here is a cookie, although if the student enrolls in the free trial, they are tracked by user-id from that point forward
 - Number of cookies: The number of unique cookies to visit the course overview page
 - Number of user-ids: The number of users who enroll in the free trial
@@ -66,6 +79,10 @@ The metrics relevant to this analysis are described below. Note that the unit of
 - Gross conversion: The number of user-ids to complete checkout and enroll in the free trial divided by the number of unique cookies to click the "Start free trial" button
 - Retention: The number of user-ids to remain enrolled past the 14-day boundary (and thus make at least one payment) divided by the number of user-ids to complete checkout
 - Net conversion: The number of user-ids to remain enrolled past the 14-day boundary (and thus make at least one payment) divided by the number of unique cookies to click the "Start free trial" button
+
+The user conversion funnel is shown below
+
+<img src="https://github.com/knaaga/AB-Testing/blob/main/assets/conversion_funnel.JPG" width="586.875" height="375" />
 
 The practical signficance boundary (d_min) for each metric is defined as the difference that would have to be observed before it is considered to be a meaningful change for the business is shown below
 
@@ -77,14 +94,8 @@ The practical signficance boundary (d_min) for each metric is defined as the dif
 | Click-through-probability  | .01 |
 | Gross conversion | .01 |
 | Retention   | .01 |
-|Net conversion   | .0075 |
+| Net conversion   | .0075 |
 
-
-## Experiment Design <a name="expoverview"></a>
-- Explain the experiment
-- Cookie - brief explanation
-- Webpage diagram
-- Funnel diagram
 
 ## Metric Choice <a name="metric"></a>
 The metrics described previously are classified into invariant metrics and evaluation metrics. Invariant metrics are those which should not change i.e., remain invariant across control and experiment groups. Evaluation metrics are those that are expected to vary between the two groups and can be used to quantify the success of the analysis.
@@ -175,14 +186,33 @@ On eliminating retention (which has the max pageview requirement currently), the
 
 If 100% of the web traffic is diverted to the experiment, based on 40,000 pageviews per day, it would take around 119 days to complete the experiment, which was deemed too long by the company. On eliminating the retention parameter, the maximum pageview requirement now drops to 685,325. This results in an 18-day experiment using a 100% diversion rate and a 36 days experiment using a 50% diversion rate. Since the company is conducting other experiments in parallel, using 50% of the traffic for this experiment is appropriate. Therefore, it was decided that 685,325 pageview samples will be collected over a period of 36 days. 
 
-
 - Adjust sample size based on desired exposure
 
 ## Experimental Analysis <a name="analysis"></a>
- - Control and experiment data
-   -Tables
- - Sanity checks for count and other metrics
-   - Tables
+### Control and Experiment Data Overview
+The webpage experiment was conducted based on the sizing, duration and exposure requirements previously established. An overview of the results for both the control and experiment group is shown below
+
+| Control | Experiment |
+|:-------------------|:--------------------|
+|Cookies	|345543|344660|
+|Clicks	|28378	|28325|
+|Enrollments	|3785	|3423|
+|Payments	|2033	|1945|
+
+### Sanity Checks for Invariant Metrics
+
+Sanity checks were done to ensure that the invariant metrics were evenly distributed across the control and experiment groups. For the count metrics - no.of cookies and no.of clicks, the 95% confidence interval centered around 0.5 was calculated and was found to contain the experimental value. For the click-through probability metric (CTP), the difference between the control and experimental group was considered and the 95% confidence interval centered around this difference was found to contain zero. Therefore, it can be concluded that all metrics pass sanity checks. The implicaiton here is that no.of cookies and no.of clicks are equally distributed between the two groups and the difference in CTP between the two groups is not significant.
+
+| Parameter | Control | Experiment | Total | Prob | StdErr | MargErr | CI_lower | CI_upper | Obs_val | Pass_Sanity |
+|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
+|Cookies|345543.0|344660.0|690203.0|0.5|0.000602|0.001180|0.498820|0.501180|0.499360|True|
+|Clicks|28378.0|28325.0|56703.0|0.5|0.002100|0.004116|0.495884|0.504116|0.499533|True|
+|CTP (diff)|0.0821258|0.0821824|0.0821541|0|0.000661|0.001295|0.484462|-0.001352|0.001239|True|
+
+
+
+
+
  - 2-sample prop test
    - Hypothesis formulation
    - Tables
