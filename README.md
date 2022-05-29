@@ -111,10 +111,71 @@ The metrics that are in line with these objectives are:
 - Table
 
 ## Experiment Sizing, Duration and Exposure <a name="sizing"></a>
-The company provided baseline webpage traffic and engagement data. The baseline conversion rates were calculated using this and were eventually used to determine the number of pageviews that are required to be collected to adequately power the experiment. An alpha value of 0.05 and beta 
-- Online calc link
-- Sizing (max of sample size for the three metrics)
-- Duration and exposure
+### Sizing
+The company provided baseline webpage traffic and engagement data. The baseline conversion rates were calculated using this and were eventually used to determine the number of pageviews that are required to be collected to adequately power the experiment. An alpha value of 0.05 and a beta value of 0.2 was used. 
+
+The baseline data provided and the calculation of baseline conversion rates are shown below
+| Metric | Value |
+|:-------------------|:--------------------|
+| Unique cookies to view course overview page per day | 40000 |
+| Unique cookies to click "Start free trial" per day | 3200 |
+| Enrollments per day | 660 |
+| Payments | 350 |
+| Click-through-probability on "Start free trial" | 3200/40000 = 0.08 |
+| Probability of enrolling, given click (gross conversion) | 660/3200 = 0.20625 |
+| Probability of payment, given enroll (retention) | 350/660 = 0.53 |
+| Probability of payment, given click | 350/3200 = 0.1093125 |
+
+
+**Using sample size calculator from [here](https://www.evanmiller.org/ab-testing/sample-size.html) to calculate the pageviews needed to achieve the target statistical power**
+
+**Gross Conversion**
+* Baseline conversion: 20.625%
+* Minimum detectable effect: 1%
+* Alpha: 5%
+* Beta: 20%
+* Sensitivity: 80%
+* Sample size: 25,835 enrollments/group
+* Number of groups = 2 (experiment and control)
+* Total sample size = 51,670 enrollments
+* Clicks/pageview = 3200/40000 = 0.08
+* Pageviews required = 51,670/0.08 = 645,875
+
+**Retention**
+* Baseline conversion: 53%
+* Minimum detectable effect: 1%
+* Alpha: 5%
+* Beta: 20%
+* Sensitivity: 80%
+* Sample size: 39,115 enrollments/group
+* Number of groups = 2 (experiment and control)
+* Total sample size = 78,230 enrollments
+* Enrollments/pageview = 660/40000 = 0.0165
+* Pageviews required = 78,230/0.08 = 4,741,212
+
+**Net Conversion**
+* Baseline conversion: 10.93%
+* Minimum detectable effect: 0.75%
+* Alpha: 5%
+* Beta: 20%
+* Sensitivity: 80%
+* Sample size: 27,413 enrollments/group
+* Number of groups = 2 (experiment and control)
+* Total sample size = 54,826 enrollments
+* Clicks/pageview = 3200/40000 = 0.08
+* Pageviews required = 54,826/0.08 = 685,325
+
+**Pageviews required is maximum of pageviews for the different metrics. Therefore the required pageviews is 4,741,212**
+
+### Duration and exposure
+100% diversion of traffic at 40,000 pageviews/day would require 119 days
+On eliminating retention (which has the max pageview requirement currently), the pageview requirement becomes 685,325 and there are two options:
+18 day experiment with 100% diversion
+36 day experiment with 50% diversion
+
+If 100% of the web traffic is diverted to the experiment, based on 40,000 pageviews per day, it would take around 119 days to complete the experiment, which was deemed too long by the company. On eliminating the retention parameter, the maximum pageview requirement now drops to 685,325. This results in an 18-day experiment using a 100% diversion rate and a 36 days experiment using a 50% diversion rate. Since the company is conducting other experiments in parallel, using 50% of the traffic for this experiment is appropriate. Therefore, it was decided that 685,325 pageview samples will be collected over a period of 36 days. 
+
+
 - Adjust sample size based on desired exposure
 
 ## Experimental Analysis <a name="analysis"></a>
