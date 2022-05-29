@@ -13,7 +13,7 @@
 - [Part 2 - Testing a Webpage Experiment to Increase User Retention and Net Enrollment](#part2)
   - [Problem Statement](#problem_statement2)
   - [Experiment Design](#expoverview)
-  - [Usage Funnel and Metrics](#metrics_funnel)
+  - [Usage Funnel and Metrics](#metrics_and_funnel)
   - [Metric Choice](#metric)
   - [Standard Error of Metrics](#SE)
   - [Experiment Sizing, Duration and Exposure](#sizing)
@@ -51,7 +51,7 @@
 ## Part 2 - Testing a Webpage Experiment to Increase User Retention and Net Enrollment <a name="part2"></a>
 
 ## Problem Statement <a name="problem_statement2"></a>
-- Same as Jupyter (refine)
+**The company's strategy pivoted from bringing in more users to their free course to maximizing user retention rate. The goal was to set clearer expectations for the students upfront, thus reducing the number of frustrated students who left the free trial. This would eventually help improve overall student experience and improve coaches' capacity to support students who are likely to complete the course. An experimental website design change was implemented to achieve this. The goal here is to determine whether or not to launch this experiment**
 
 ## Experiment Design <a name="expoverview"></a>
 ### Experiment Overview
@@ -201,24 +201,32 @@ The webpage experiment was conducted based on the sizing, duration and exposure 
 
 ### Sanity Checks for Invariant Metrics
 
-Sanity checks were done to ensure that the invariant metrics were evenly distributed across the control and experiment groups. For the count metrics - no.of cookies and no.of clicks, the 95% confidence interval centered around 0.5 was calculated and was found to contain the experimental value. For the click-through probability metric (CTP), the difference between the control and experimental group was considered and the 95% confidence interval centered around this difference was found to contain zero. Therefore, it can be concluded that all metrics pass sanity checks. The implicaiton here is that no.of cookies and no.of clicks are equally distributed between the two groups and the difference in CTP between the two groups is not significant.
+Sanity checks were done to ensure that the invariant metrics were evenly distributed across the control and experiment groups. For the count metrics - no.of cookies and no.of clicks, the 95% confidence interval centered around 0.5 was calculated and was found to contain the experimental value. For the click-through probability metric (CTP), the difference between the control and experimental group was considered and the 95% confidence interval centered around this difference was found to contain zero. Therefore, it can be concluded that all metrics pass sanity checks. The implication here is that no.of cookies and no.of clicks are equally distributed between the two groups and the difference in CTP between the two groups is not significant.
 
-| Parameter | Control | Experiment | Total | Prob | StdErr | MargErr | CI_lower | CI_upper | Obs_val | Pass_Sanity |
-|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
-|Cookies|345543.0|344660.0|690203.0|0.5|0.000602|0.001180|0.498820|0.501180|0.499360|True|
-|Clicks|28378.0|28325.0|56703.0|0.5|0.002100|0.004116|0.495884|0.504116|0.499533|True|
-|CTP (diff)|0.0821258|0.0821824|0.0821541|0|0.000661|0.001295|0.484462|-0.001352|0.001239|True|
+| Parameter | Control | Experiment | Prob | StdErr | MargErr | CI_lower | CI_upper | Obs_val | Pass_Sanity |
+|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
+|Cookies|345543.0|344660.0|0.5|0.000602|0.001180|0.498820|0.501180|0.499360|True|
+|Clicks|28378.0|28325.0|0.5|0.002100|0.004116|0.495884|0.504116|0.499533|True|
+|CTP (diff)|0.0821258|0.0821824|0|0.000661|0.001295|0.484462|-0.001352|0.001239|True|
 
+### AB Testing
+#### **Results**
+A two-sample proportion test was performed to analyze if the evaluation metrics - gross conversion and net conversion were different between the control and experiment groups. The results of this analysis are shown below
 
+| Parameter | D_min | Control | Experiment | Diff | StdErr | MargErr | CI_lower | CI_upper | Result |
+|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
+|Gross Conversion|0.01|0.218875|0.198320|-0.020555|0.004370|0.008565|-0.029120|-0.011989|Statistically and Practically Signficant|
+|Net Conversion|0.0075|0.117562|0.112688|-0.004874|0.003434|0.006731|-0.011604|0.001857|Neither Statistically and Practically Signficant|
 
+#### **Inference**
+For both the metrics, the 95% confidence interval centered around the difference in conversion between the control and experiment groups was calculated. 
 
+For the gross conversion metric, this confidence interval was not found to contain zero. This implies that the difference is statistically signficant. Also, since the absolute value of difference is higher than the minimum observable difference (D_min), it is considered to be practically significant as well. Further, the difference being negative implies that the experiment has led to a reduction in gross conversion rate. 
 
- - 2-sample prop test
-   - Hypothesis formulation
-   - Tables
+For the net conversion metric, this confidence interval was found to contain zero. This implies that the difference is not statistically signficant. Also, since the absolute value of difference is lower than the minimum observable difference (D_min), it is not considered to be practically significant as well. 
 
 ## Recommendation <a name="recommendation2"></a>
-- Same as jupyter
+Based on the analysis of the AB test, it can be concluded that the experiment resulted in a decrease in the gross conversion rate of users. In other words, the ratio of the number of users enrolling in the free trial to the number of users clicking on the free trial has reduced. However, the experiment did not increase net enrollment in a statistically significant manner. Therefore, it can be considered partly successfull. The recommendation is to launch the experiment, while continuting to design additional experiments to achieve the goal of improved net enrollment
 
 ## Conclusion <a name="conclusion"></a>
 
