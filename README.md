@@ -1,5 +1,4 @@
 # AB-Testing: E-Learning Webpage Change Implementation
-## Project Overview
 
 #### Dependencies
 
@@ -101,10 +100,29 @@ The proportion of samples where the absolute difference was greater than the abs
 Since the p-value obtained was lower than the threshold of 0.05 needed for statistical significance, it can be concluded that the difference in conversion rates between the pages is not statistically signficant. 
 
 ## AB Testing - Regression Approach <a name="regression"></a>
-- Regression/Logistic regression overview
-- Logistic regression - single
-- Logistic regression - multiple
-- Inference
+### Logistic regression overview
+AB testing can also be performed using regression techniques. Since the outcome in this case is a binary variable (converted vs not converted), a logistic regression model is considered appropriate.
+
+### Simple Logistic Regression
+Initially, the regression was performed considering only the response variable - converted. The results of this regression analysis are shown below
+
+--INSERT IMAGE--
+
+A regression coefficient of -0.015 was obtained, which corresponds to a likelihood of 0.9851. The interpretation here is that the new page is 98.51% as likely to convert users as the old page. In other words, the new page is 1.49% less likely to convert users as the old page
+
+Further, the regression analysis yielded a p-value of 0.1899, which is similar to the value obtained using the z-test approach. 
+
+### Multiple Logistic Regression
+Next, the regression was performed considering the country of residence of users in addition to the response variable. The results of this regression analysis are shown below
+
+--INSERT IMAGE--
+
+The regression coefficients for the US, the UK and Canada correspond to likelihoods of 0.9819, 1.0074, 0.9206. The interpretation here is that the conversion rate of the new page for US and Canada residents is lower than that of the old page by 1.81% and 7.94%. For UK residents, the conversion rate of the new page is 0.0074% higher compared to the old page
+
+### Inference
+For the simple regression case, since the p value is greater than 0.05, we fail to reject the null and can conclude that there is no statistically significant difference in the conversion rates between the two pages
+
+Taking into account the country a particular user lives in, the p-value for Canada was 0.0295, thereby suggesting that for residents of Canada, there is a statistically significant difference in conversion rates between the old and new pages. The new page is 7.94% less likely to convert users compared to the old page. For US and UK residents, there is no statistically signifcant difference in conversion rates
 
 ## Recommendation <a name="recommendation1"></a>
 Based on the analysis of the AB test results using different techniques like z-test and regression, it can be concluded that the difference in percentage of users enrolling in the free trial of the data science program between the new and old web page is not statistically significant. When the influence of the countries that the users resided in was taken into account, the difference was not statistically different for UK and US. For Canada however, it was observed that the new web page is about 8% less likely to convert users compared to the old page. Based on these results, the recommendation to the e-commerce company is to not launch the new web page
@@ -286,12 +304,11 @@ For the gross conversion metric, this confidence interval was not found to conta
 
 For the net conversion metric, this confidence interval was found to contain zero. This implies that the difference is not statistically signficant. Also, since the absolute value of difference is lower than the minimum observable difference (D_min), it is not considered to be practically significant as well. 
 
-## Recommendation <a name="recommendation2"></a>
-Based on the analysis of the AB test, it can be concluded that the experiment resulted in a decrease in the gross conversion rate of users. In other words, the ratio of the number of users enrolling in the free trial to the number of users clicking on the free trial has reduced. However, the experiment did not increase net enrollment in a statistically significant manner. Therefore, it can be considered partly successfull. The recommendation is to launch the experiment, while continuting to design additional experiments to achieve the goal of improved net enrollment
+## Conclusion and Recommendation <a name="recommendation2"></a>
+Based on the analysis of the AB test, it can be concluded that the experiment resulted in a decrease in the gross conversion rate of users. In other words, the ratio of the number of users enrolling in the free trial to the number of users clicking on the free trial has reduced. However, the experiment did not increase net enrollment in a statistically significant manner. Therefore, it can be considered partly successfull. The recommendation is to launch the experiment, while continuing to design additional experiments to achieve the goal of improved net enrollment
 
-## Conclusion <a name="conclusion"></a>
-
-## Authors and Acknowledgements <a name="licensing"></a>
+## Acknowledgements <a name="licensing"></a>
+This project was based on Udacity's Data Analyst Nanodegree coursework 
 
 
 
