@@ -29,7 +29,7 @@ An e-learning company has developed a new web page to try and increase the numbe
 
 ## Exploratory Data Analysis <a name="eda"></a>
 ### Data Overview
-The following table shows an overview of the data used for the analysis. It consists of the id of the user, the time they visited the web page, the group they belong to (control or experiment), the landing page they were shown (old or new) and whether or not they were converted to an enrollee
+The following table shows an overview of the data used for the analysis. It consists of the id of the user, the time they visited the web page, the group they belong to (control or treatment), the landing page they were shown (old or new) and whether or not they were converted to an enrollee
 
 | User ID | Timestamp | Group | Landing Page | Converted |
 |:------:|:------:|:------:|:------:|:------:|
@@ -58,14 +58,43 @@ The results of some preliminary data exploration are shown below
 It can be seen from these tables that there exist certain entries where the participants were either incorrectly assigned to the treatment group after being shown the old page or were incorrectly assigned to the control group after being shown the new page. Another takeaway is that there are no missing entries in the data
 
 ### Data Cleaning and Wrangling
+In this section, the entries with mismatched groups and landing pages are removed. Following this, duplicate users are removed from the dataframe. These results are shown below
 
-- Cleaning and wrangling
-- Contingency table for cleaned data
+|Parameter|Value|
+|:------|:------|
+|No of times new_page and treatment don't line up in the new dataframe| 0|
+|No of entries in the new dataframe| 290585|
+|No of unique users in the new dataframe| 290584|
+|No of duplicate users in the new dataframe| 1|
+
+### Contingency Table and Conversion Rates
+The contingency table for the cleaned data is shown below
+
+| |Treatment|Control|Total|
+|:------:|:------:|:------:|:------:|
+|No of converted users| 17264|17489|34753|
+|No of non converted users| 128046|127785|255831|
+|Total| 145310|145274|290584|
+
+The conversion rates for the two groups and the overall conversion rate is shown below
+|Parameter |Value|
+|:------:|:------:|
+|Treatment group conversion rate| 0.118808|
+|Control group conversion rate| 0.120386|
+|Overall conversion rate| 0.119597|
 
 ## AB Testing - 2-Sample Proportion Test Approach <a name="2sampletest"></a>
-- Hypothesis formulation
-- Simulation/Bootstrapping
-  - Histogram
+### Hypothesis formulation
+The null and alternate hypotheses can be formulated as follows:
+
+**Null hypothesis: The treatment group conversion rate (new page) and control group conversion rate (old page) are the same and equal to the overall conversion rate. 
+Alternate hypothesis: The treatment group conversion rate (new page) and control group conversion rate (old page) are different**
+
+### Bootstrapping
+A sampling distribution of the difference in conversion rates between the two pages is obtained by bootstrapping over 10,000 iterations. This distribution is shown below
+
+<img src="https://github.com/knaaga/AB-Testing/blob/main/assets/histogram.JPG" width="500" height="357.14" />
+
  - Python inbuilt
  - Inference
 
@@ -76,7 +105,7 @@ It can be seen from these tables that there exist certain entries where the part
 - Inference
 
 ## Recommendation <a name="recommendation1"></a>
-- Same as Jupyter
+Based on the analysis of the AB test results using different techniques like z-test and regression, it can be concluded that the difference in percentage of users enrolling in the free trial of the data science program between the new and old web page is not statistically significant. When the influence of the countries that the users resided in was taken into account, the difference was not statistically different for UK and US. For Canada however, it was observed that the new web page is about 8% less likely to convert users compared to the old page. Based on these results, the recommendation to the e-commerce company is to not launch the new web page
 
 ## Part 2 - Testing a Webpage Experiment to Increase User Retention and Net Enrollment <a name="part2"></a>
 
