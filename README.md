@@ -25,10 +25,40 @@
 ## Part 1 - Testing a New Webpage to Increase Free Trial Enrollment <a name="part1"></a>
 
 ## Problem Statement <a name="problem_statement1"></a>
-- Same as Jupyter
+An e-learning company has developed a new web page to try and increase the number of users who enroll in their free data science program (in this context, the enrollment will be referred to as converting). They run an A/B test to understand if they should implement this new page. Further, they also tested this web page separately in three countries - US, UK and Canada to understand if the country of residence plays a role in determining the conversion rate of users. The goal here is to analyze these results and help the company make a decision about the new page
 
 ## Exploratory Data Analysis <a name="eda"></a>
-- Data snapshot table
+### Data Overview
+The following table shows an overview of the data used for the analysis. It consists of the id of the user, the time they visited the web page, the group they belong to (control or experiment), the landing page they were shown (old or new) and whether or not they were converted to an enrollee
+
+| User ID | Timestamp | Group | Landing Page | Converted |
+|:------:|:------:|:------:|:------:|:------:|
+851104|11:48.6|control|old_page|0|
+804228|01:45.2|control|old_page|0|
+661590|55:06.2|treatment|new_page|0|
+853541|28:03.1|treatment|new_page|0|
+864975|52:26.2|control|old_page|1|
+
+The results of some preliminary data exploration are shown below
+
+|Parameter|Count|
+|:------|:------|
+|No of entries| 294478|
+|No of unique users| 290584|
+|No of times new_page and treatment don't line up| 3893|
+
+|Rows with missing values|Count|
+|:------|:------|
+|user_id|0|
+|timestamp|0|
+|group|0|
+|landing_page|0|
+|converted|0|
+
+It can be seen from these tables that there exist certain entries where the participants were either incorrectly assigned to the treatment group after being shown the old page or were incorrectly assigned to the control group after being shown the new page. Another takeaway is that there are no missing entries in the data
+
+### Data Cleaning and Wrangling
+
 - Cleaning and wrangling
 - Contingency table for cleaned data
 
