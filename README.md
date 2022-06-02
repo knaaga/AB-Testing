@@ -1,6 +1,12 @@
 # AB-Testing: E-Learning Webpage Change Implementation
 
 #### Dependencies
+- numpy
+- scipy
+- pandas
+- matplotlib
+- statsmodels
+- scipy
 
 ## Table of Contents
 - [Part 1 - Testing a New Webpage to Increase Free Trial Enrollment](#part1)
@@ -8,7 +14,7 @@
   - [Exploratory Data Analysis](#eda)
   - [AB Testing - 2-Sample Proportion Test Approach](#2sampletest)
   - [AB Testing - Regression Approach](#regression)
-  - [Recommendation](#recommendation1)
+  - [Conclusion and Recommendation](#recommendation1)
 - [Part 2 - Testing a Webpage Experiment to Increase User Retention and Net Enrollment](#part2)
   - [Problem Statement](#problem_statement2)
   - [Experiment Design](#expoverview)
@@ -17,9 +23,8 @@
   - [Standard Error of Metrics](#SE)
   - [Experiment Sizing, Duration and Exposure](#sizing)
   - [Experimental Analysis](#analysis)
-  - [Recommendation](#recommendation2)
-- [Conclusion](#conclusion)
-- [Authors and Acknowledgements](#licensing)
+  - [Conclusion and Recommendation](#recommendation2)
+- [Acknowledgements](#licensing)
 
 ## Part 1 - Testing a New Webpage to Increase Free Trial Enrollment <a name="part1"></a>
 
@@ -106,7 +111,7 @@ AB testing can also be performed using regression techniques. Since the outcome 
 ### Simple Logistic Regression
 Initially, the regression was performed considering only the response variable - converted. The results of this regression analysis are shown below
 
---INSERT IMAGE--
+<img src="https://github.com/knaaga/AB-Testing/blob/main/assets/simple_logistic_regr_results.JPG" width="340.8" height="256.8" />
 
 A regression coefficient of -0.015 was obtained, which corresponds to a likelihood of 0.9851. The interpretation here is that the new page is 98.51% as likely to convert users as the old page. In other words, the new page is 1.49% less likely to convert users as the old page
 
@@ -115,7 +120,7 @@ Further, the regression analysis yielded a p-value of 0.1899, which is similar t
 ### Multiple Logistic Regression
 Next, the regression was performed considering the country of residence of users in addition to the response variable. The results of this regression analysis are shown below
 
---INSERT IMAGE--
+<img src="https://github.com/knaaga/AB-Testing/blob/main/assets/multiple_logistic_regr_results.JPG" width="336.8" height="302.4" />
 
 The regression coefficients for the US, the UK and Canada correspond to likelihoods of 0.9819, 1.0074, 0.9206. The interpretation here is that the conversion rate of the new page for US and Canada residents is lower than that of the old page by 1.81% and 7.94%. For UK residents, the conversion rate of the new page is 0.0074% higher compared to the old page
 
@@ -124,7 +129,7 @@ For the simple regression case, since the p value is greater than 0.05, we fail 
 
 Taking into account the country a particular user lives in, the p-value for Canada was 0.0295, thereby suggesting that for residents of Canada, there is a statistically significant difference in conversion rates between the old and new pages. The new page is 7.94% less likely to convert users compared to the old page. For US and UK residents, there is no statistically signifcant difference in conversion rates
 
-## Recommendation <a name="recommendation1"></a>
+## Conclusion and Recommendation <a name="recommendation1"></a>
 Based on the analysis of the AB test results using different techniques like z-test and regression, it can be concluded that the difference in percentage of users enrolling in the free trial of the data science program between the new and old web page is not statistically significant. When the influence of the countries that the users resided in was taken into account, the difference was not statistically different for UK and US. For Canada however, it was observed that the new web page is about 8% less likely to convert users compared to the old page. Based on these results, the recommendation to the e-commerce company is to not launch the new web page
 
 ## Part 2 - Testing a Webpage Experiment to Increase User Retention and Net Enrollment <a name="part2"></a>
