@@ -90,13 +90,15 @@ The null and alternate hypotheses can be formulated as follows:
 **Null hypothesis: The treatment group conversion rate (new page) and control group conversion rate (old page) are the same and equal to the overall conversion rate. 
 Alternate hypothesis: The treatment group conversion rate (new page) and control group conversion rate (old page) are different**
 
-### Bootstrapping
-A sampling distribution of the difference in conversion rates between the two pages is obtained by bootstrapping over 10,000 iterations. This distribution is shown below
+### Bootstrapping and AB Testing
+A sampling distribution of the difference in conversion rates between the two pages is obtained by bootstrapping over 10,000 iterations. This distribution is shown below. The red dashed lines indicate the two sided observed difference in conversion rates between the two groups. 
 
-<img src="https://github.com/knaaga/AB-Testing/blob/main/assets/histogram.JPG" width="500" height="357.14" />
+<img src="https://github.com/knaaga/AB-Testing/blob/main/assets/histogram.jpg" width="500" height="357.14" />
 
- - Python inbuilt
- - Inference
+The proportion of samples where the absolute difference was greater than the absolute observed difference is 18.7%, which corresponds to a p-value of 0.187. Further, a two-sample two-sided z-test was performed and this yielded a p-value of 0.187. 
+
+### Inference
+Since the p-value obtained was lower than the threshold of 0.05 needed for statistical significance, it can be concluded that the difference in conversion rates between the pages is not statistically signficant. 
 
 ## AB Testing - Regression Approach <a name="regression"></a>
 - Regression/Logistic regression overview
