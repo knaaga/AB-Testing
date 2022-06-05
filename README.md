@@ -1,5 +1,8 @@
 # AB-Testing: E-Learning Webpage Change Implementation
 
+## Project Overview
+AB testing, also known as split testing refers to a randomized experimentation process where in, two versions of a user-experience based product like a webpage or an application are compared to determine which one performs better against a specific objective. It is a commonly used technique for enchancing the performance of digital assets and provides data-driven, throughly informed decisions about the new initiative that is being tested. In this project, AB testing was used to evaluate two different experiments by an e-learning company where a changes to an existing webpage were tested with the goal of inreasing free enrollments and user retention.
+
 #### Dependencies
 - numpy
 - scipy
@@ -29,7 +32,7 @@
 ## Part 1 - Testing a New Webpage to Increase Free Trial Enrollment <a name="part1"></a>
 
 ## Problem Statement <a name="problem_statement1"></a>
-An e-learning company has developed a new web page to try and increase the number of users who enroll in their free data science program (in this context, the enrollment will be referred to as converting). They run an A/B test to understand if they should implement this new page. Further, they also tested this web page separately in three countries - US, UK and Canada to understand if the country of residence plays a role in determining the conversion rate of users. The goal here is to analyze these results and help the company make a decision about the new page
+An e-learning company has developed a new web page to try and increase the number of users who enroll in their free data science program (in this context, the enrollment will be referred to as converting). They ran an A/B test to understand if they should implement this new page. Further, they also tested this web page separately in three countries - US, UK and Canada to understand if the country of residence plays a role in determining the conversion rate of users. The goal here is to analyze these results and help the company make a decision about the new page
 
 ## Exploratory Data Analysis <a name="eda"></a>
 ### Data Overview
@@ -91,8 +94,11 @@ The conversion rates for the two groups and the overall conversion rate is shown
 ### Hypothesis formulation
 The null and alternate hypotheses can be formulated as follows:
 
-**Null hypothesis: The treatment group conversion rate (new page) and control group conversion rate (old page) are the same and equal to the overall conversion rate. 
-Alternate hypothesis: The treatment group conversion rate (new page) and control group conversion rate (old page) are different**
+**Null hypothesis**
+The treatment group conversion rate (new page) and control group conversion rate (old page) are the same and equal to the overall conversion rate.
+
+**Alternate hypothesis**
+The treatment group conversion rate (new page) and control group conversion rate (old page) are different.
 
 ### Bootstrapping and AB Testing
 A sampling distribution of the difference in conversion rates between the two pages is obtained by bootstrapping over 10,000 iterations. This distribution is shown below. The red dashed lines indicate the two sided observed difference in conversion rates between the two groups. 
@@ -139,9 +145,9 @@ Based on the analysis of the AB test results using different techniques like z-t
 
 ## Experiment Design <a name="expoverview"></a>
 ### Experiment Overview
-At the time of this experiment, Udacity courses currently have two options on the course overview page: “start free trial,” and “access course materials.” If the student clicks “start free trial,” they will be asked to enter their credit card information, and then they will be enrolled in a free trial for the paid version of the course. After 14 days, they will automatically be charged unless they cancel first. If the student clicks “access course materials,” they will be able to view the videos and take the quizzes for free, but they will not receive coaching support or a verified certificate, and they will not submit their final project for feedback.
+At the time of this experiment, Udacity courses currently had two options on the course overview page: “start free trial,” and “access course materials.” If the student clicks “start free trial,” they will be asked to enter their credit card information, and then they will be enrolled in a free trial for the paid version of the course. After 14 days, they will automatically be charged unless they cancel first. If the student clicks “access course materials,” they will be able to view the videos and take the quizzes for free, but they will not receive coaching support or a verified certificate, and they will not submit their final project for feedback.
 
-In the experiment, Udacity tested a change where if the student clicked “start free trial,” they were asked how much time they had available to devote to the course. If the student indicated five or more hours per week, they would be taken through the checkout process as usual. If they showed fewer than 5 hours per week, a message would appear indicating that Udacity courses usually require a more significant time commitment for successful completion, and suggesting that the student might like to access the course materials for free. At this point, the student would have the option to continue enrolling in the free trial or access the course materials for free instead. This screenshot shows what this experiment looks like.
+In the experiment, Udacity tested a change where if the student clicked “start free trial,” they were asked how much time they had available to devote to the course. If the student indicated five or more hours per week, they would be taken through the checkout process as usual. If they indicated fewer than 5 hours per week, a message would appear indicating that Udacity courses usually require a more significant time commitment for successful completion, and suggesting that the student might like to access the course materials for free. At this point, the student would have the option to continue enrolling in the free trial or access the course materials for free instead. This screenshot shows what this experiment looks like.
 
 ![test](https://github.com/knaaga/AB-Testing/blob/main/assets/webpage_experiment.png)
 
@@ -155,7 +161,7 @@ This experiment will have a significant effect and hence will reduce the number 
 Unit of Diversion: A unit of diversion is used to define what an individual subject is, in an experiment. In this case, it is a cookie (although if the student enrolls in the free trial, they are tracked by user-id from that point forward). 
 
 ### Overview of Metrics and User Conversion Funnel <a name="metrics_and_funnel"></a>
-The metrics relevant to this analysis are described below. Note that the unit of diversion here is a cookie, although if the student enrolls in the free trial, they are tracked by user-id from that point forward
+The metrics relevant to this analysis are described below. 
 - Number of cookies: The number of unique cookies to visit the course overview page
 - Number of user-ids: The number of users who enroll in the free trial
 - Number of clicks: The number of unique cookies to click the "Start free trial" button
@@ -168,7 +174,7 @@ The user conversion funnel is shown below
 
 <img src="https://github.com/knaaga/AB-Testing/blob/main/assets/conversion_funnel.JPG" width="586.875" height="375" />
 
-The practical signficance boundary (d_min) for each metric is defined as the difference that would have to be observed before it is considered to be a meaningful change for the business is shown below
+The practical signficance boundary (d_min) for each metric is defined as the difference in performance that would have to be observed before it is considered to be a meaningful change for the business is shown below
 
 | Metric | d_min |
 |:-------------------:|:--------------------:|
@@ -198,12 +204,6 @@ The metrics that are in line with these objectives are:
 - Gross conversion
 - Retention
 - Net conversion
-
-## Standard Error of Metrics <a name="SE"></a>
-
-- Formula
-- Sample size and p
-- Table
 
 ## Experiment Sizing, Duration and Exposure <a name="sizing"></a>
 ### Sizing
@@ -262,22 +262,15 @@ The baseline data provided and the calculation of baseline conversion rates are 
 
 **Pageviews required is maximum of pageviews for the different metrics. Therefore the required pageviews is 4,741,212**
 
-### Duration and exposure
-100% diversion of traffic at 40,000 pageviews/day would require 119 days
-On eliminating retention (which has the max pageview requirement currently), the pageview requirement becomes 685,325 and there are two options:
-18 day experiment with 100% diversion
-36 day experiment with 50% diversion
-
+### Duration and Exposure
 If 100% of the web traffic is diverted to the experiment, based on 40,000 pageviews per day, it would take around 119 days to complete the experiment, which was deemed too long by the company. On eliminating the retention parameter, the maximum pageview requirement now drops to 685,325. This results in an 18-day experiment using a 100% diversion rate and a 36 days experiment using a 50% diversion rate. Since the company is conducting other experiments in parallel, using 50% of the traffic for this experiment is appropriate. Therefore, it was decided that 685,325 pageview samples will be collected over a period of 36 days. 
-
-- Adjust sample size based on desired exposure
 
 ## Experimental Analysis <a name="analysis"></a>
 ### Control and Experiment Data Overview
 The webpage experiment was conducted based on the sizing, duration and exposure requirements previously established. An overview of the results for both the control and experiment group is shown below
 
-| Control | Experiment |
-|:-------------------|:--------------------|
+| Parameter | Control | Experiment
+|:-------------------|:--------------------|:--------------------|
 |Cookies	|345543|344660|
 |Clicks	|28378	|28325|
 |Enrollments	|3785	|3423|
@@ -299,8 +292,8 @@ A two-sample proportion test was performed to analyze if the evaluation metrics 
 
 | Parameter | D_min | Control | Experiment | Diff | StdErr | MargErr | CI_lower | CI_upper | Result |
 |:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|:------:|
-|Gross Conversion|0.01|0.218875|0.198320|-0.020555|0.004370|0.008565|-0.029120|-0.011989|Statistically and Practically Signficant|
-|Net Conversion|0.0075|0.117562|0.112688|-0.004874|0.003434|0.006731|-0.011604|0.001857|Neither Statistically and Practically Signficant|
+|Gross Conversion|0.01|0.218875|0.198320|-0.020555|0.004370|0.008565|-0.029120|-0.011989|Statistically and Practically Significant|
+|Net Conversion|0.0075|0.117562|0.112688|-0.004874|0.003434|0.006731|-0.011604|0.001857|Neither Statistically and Practically Significant|
 
 #### **Inference**
 For both the metrics, the 95% confidence interval centered around the difference in conversion between the control and experiment groups was calculated. 
