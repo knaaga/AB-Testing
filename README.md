@@ -62,7 +62,7 @@ The results of some preliminary data exploration are shown below
 |landing_page|0|
 |converted|0|
 
-It can be seen from these tables that there exist certain entries where the participants were either incorrectly assigned to the treatment group after being shown the old page or were incorrectly assigned to the control group after being shown the new page. Another takeaway is that there are no missing entries in the data
+It can be seen from these tables that there exist certain entries where the participants were either incorrectly shown the old page after being assigned to the treatment group or were incorrectly shown the new page after being assigned to the control group. Another takeaway is that there are no missing entries in the data
 
 ### Data Cleaning and Wrangling
 In this section, the entries with mismatched groups and landing pages are removed. Following this, duplicate users are removed from the dataframe. These results are shown below
